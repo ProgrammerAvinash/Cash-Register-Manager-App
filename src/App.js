@@ -7,21 +7,40 @@ export default function App() {
   var [cashValue, setCashValue] = useState("");
   var [message, setMessage] = useState("");
   var [result, setResult] = useState([]);
-  var [count, setCount] = useState({});
+  var [count, setCount] = useState([]);
   var Notes = [2000, 500, 200, 100, 50, 20, 10, 5, 1];
 
   function Counting() {
+    count = [];
     var counts = {};
     const resultArray = result;
     resultArray.forEach((x) => {
       counts[x] = (counts[x] || 0) + 1;
     });
-    console.log("c", counts);
-    console.log("ff", count);
-    count = counts;
-    setCount(count);
-    var countKeys = Object.values(count);
-    console.log("countKeys =", countKeys);
+
+    var countArray = Object.entries(counts);
+
+    countArray.map((cArray) => {
+      count.push(cArray);
+
+      setCount(count);
+    });
+
+    var countKeys = Object.keys(counts);
+    var countValue = Object.values(counts);
+
+    let table = document.getElementById("disp_table");
+
+    function CountPrint() {
+      for (let i = 0; i < countArray.length; i++) {
+        for (let j = 0; j < Notes.length; j++) {
+          if (countArray[i][0] == Notes[j]) {
+            table.rows[0].cells[j + 1].innerHTML = countArray[i][1];
+          }
+        }
+      }
+    }
+    CountPrint();
   }
 
   function onCheckClicked() {
@@ -42,8 +61,7 @@ export default function App() {
         result.push(currency);
         setResult(result);
         differenceAmount -= currency;
-        console.log("result =", result);
-        console.log("latestDiff", differenceAmount);
+
         Counting();
       }
     });
@@ -96,7 +114,7 @@ export default function App() {
             Check
           </button>
           <p>{message}</p>
-          <table className="returnTable">
+          <table className="returnTable" id="disp_table">
             <caption>Return Change</caption>
 
             <tr>
