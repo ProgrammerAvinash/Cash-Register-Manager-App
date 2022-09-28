@@ -1,6 +1,53 @@
 import "./App.css";
 
-function App() {
+import React, { useState } from "react";
+
+export default function App() {
+  var [billInputValue, setInputValue] = useState("");
+  var [cashValue, setCashValue] = useState("");
+  var [message, setMessage] = useState("");
+  var [result, setResult] = useState([]);
+  var [count, setCount] = useState({});
+  var Notes = [2000, 500, 200, 100, 50, 20, 10, 5, 1];
+
+  function Counting() {
+    var counts = {};
+    const resultArray = result;
+    resultArray.forEach((x) => {
+      counts[x] = (counts[x] || 0) + 1;
+    });
+    console.log("c", counts);
+    console.log("ff", count);
+    count = counts;
+    setCount(count);
+    var countKeys = Object.values(count);
+    console.log("countKeys =", countKeys);
+  }
+
+  function onCheckClicked() {
+    result = [];
+    //checking if values is < 0 or not
+    if (billInputValue <= 0 || cashValue <= 0) {
+      console.log("please enter valid input");
+      setMessage("please enter valid input");
+      return "please enter valid input";
+    }
+
+    var differenceAmount = cashValue - billInputValue;
+
+    console.log("differenceAmount = ", differenceAmount);
+    //mapping over notes
+    Notes.map((currency, index) => {
+      while (differenceAmount >= currency) {
+        result.push(currency);
+        setResult(result);
+        differenceAmount -= currency;
+        console.log("result =", result);
+        console.log("latestDiff", differenceAmount);
+        Counting();
+      }
+    });
+  }
   return (
     <div className="App">
       <h1> Cash Register Manager App </h1>
@@ -21,6 +68,12 @@ function App() {
             type="text"
             placeholder="Enter Bill Amount"
             className="inputBox"
+            onChange={(e) => {
+              var billAmountValue = e.target.value;
+
+              billInputValue = billAmountValue;
+              setInputValue(billInputValue);
+            }}
           />
 
           <label htmlFor="cashGiven" className="Label">
@@ -32,16 +85,25 @@ function App() {
             type="text"
             placeholder="Enter Cash Given"
             className="inputBox"
+            onChange={(e) => {
+              var CashAmountValue = e.target.value;
+              cashValue = CashAmountValue;
+              setCashValue(cashValue);
+            }}
           />
 
-          <button className="buttonCheck">Check</button>
-
+          <button className="buttonCheck" onClick={onCheckClicked}>
+            Check
+          </button>
+          <p>{message}</p>
           <table className="returnTable">
             <caption>Return Change</caption>
+
             <tr>
               <th>No.of Notes</th>
+              <td>{}</td>
               <td> </td>
-              <td> </td>
+              <td>{}</td>
               <td> </td>
               <td> </td>
               <td> </td>
@@ -53,6 +115,7 @@ function App() {
               <th>Note</th>
               <td>2000</td>
               <td>500</td>
+              <td>200</td>
               <td>100</td>
               <td>50</td>
               <td>20</td>
@@ -61,10 +124,11 @@ function App() {
               <td>1</td>
             </tr>
           </table>
+          <h5>{}</h5>
         </div>
       </div>
     </div>
   );
 }
 
-export default App;
+// https://codesandbox.io/s/cash-register-manager-rxdwzb?file=/src/App.js
