@@ -56,7 +56,7 @@ export default function App() {
 
     console.log("differenceAmount = ", differenceAmount);
     //mapping over notes
-    Notes.map((currency, index) => {
+    Notes.map((currency) => {
       while (differenceAmount >= currency) {
         result.push(currency);
         setResult(result);
