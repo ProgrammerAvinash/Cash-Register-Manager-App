@@ -61,7 +61,6 @@ export default function App() {
         result.push(currency);
         setResult(result);
         differenceAmount -= currency;
-
         Counting();
       }
     });
