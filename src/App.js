@@ -142,6 +142,50 @@ export default function App() {
             </tr>
           </table>
           <h5>{}</h5>
+          <div className="Social-Links translate_social">
+            {/* Linked-in */}
+
+            <a
+              className="hoverColor"
+              href="https://www.linkedin.com/in/avinash-yadav-588744151/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fa fa-linkedin-square" aria-hidden="true" />
+            </a>
+
+            {/* instagram */}
+
+            <a
+              className="hoverColor"
+              href="https://www.instagram.com/avi_nash_yadav/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fa fa-instagram" />
+            </a>
+
+            {/* twiter */}
+            <a
+              className="hoverColor"
+              href="https://twitter.com/Aviyadav25"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fa fa-twitter-square" aria-hidden="true" />
+            </a>
+
+            {/* Github */}
+            <a
+              className="hoverColor"
+              href="https://github.com/ProgrammerAvinash"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <i class="fa fa-github-square" aria-hidden="true" />
+            </a>
+          </div>
+          <p>© 2022 || Avinash Yadav</p>
         </div>
       </div>
     </div>
